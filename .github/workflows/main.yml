@@ -52,9 +52,16 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         mkdir build && cd build
+
         ls $(brew --prefix qt5)/lib/cmake/Qt5
         cmake  -DQt5_DIR=$(brew --prefix qt5)/lib/cmake/Qt5 ..
+
         make
+
+        mkdir -p Pixelpulse2.app/Contents/plugins/platforms
+        ls /usr/local/opt/qt/
+        cp /usr/local/opt/qt/plugins/platforms/libqcocoa.dylib Pixelpulse2.app/Contents/plugins/platforms/
+
         sudo make install
         cd ..
 
@@ -62,11 +69,6 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         cd build
-
-        mkdir -p Pixelpulse2.app/Contents/plugins/platforms
-        ls /usr/local/opt/qt/
-        cp /usr/local/opt/qt/plugins/platforms/libqcocoa.dylib Pixelpulse2.app/Contents/plugins/platforms/
-
 
         /usr/local/opt/qt/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
         cd ..
