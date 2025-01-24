@@ -30,7 +30,7 @@ jobs:
         brew install libusb qt@5 boost
         brew upgrade qt@5
         brew link libusb
-        brew link qt
+        #brew link qt
         echo "/usr/local/opt/qt/bin" >> $GITHUB_PATH
 
     - name: Clone and build libsmu (macOS)
