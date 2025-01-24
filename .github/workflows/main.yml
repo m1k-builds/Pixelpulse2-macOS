@@ -40,8 +40,11 @@ jobs:
         git clone https://github.com/m1k-builds/libsmu-macOS.git libsmu
         cd libsmu
         mkdir build && cd build
-        sudo cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=/usr/local ..
-        sudo make
+        export MY_INSTALL_DIR=$HOME/.local
+        mkdir -p $MY_INSTALL_DIR
+        export PATH="$MY_INSTALL_DIR/bin:$PATH"
+        cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR ..
+        make
         sudo make install
         cd ../..
 
@@ -49,8 +52,8 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         mkdir build && cd build
-        sudo cmake ..
-        sudo make
+        cmake ..
+        make
         sudo make install
         cd ..
 
