@@ -62,8 +62,15 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         cd build
+
+        mkdir -p Pixelpulse2.app/Contents/plugins/platforms
+        ls /usr/local/opt/qt/
+        cp /usr/local/opt/qt/plugins/platforms/libqcocoa.dylib Pixelpulse2.app/Contents/plugins/platforms/
+
+
         /usr/local/opt/qt/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
         cd ..
+
         libsmupath="$(otool -L ./build/pixelpulse2.app/Contents/MacOS/pixelpulse2 | grep libsmu | cut -d " " -f 1)"
         libsmuid="$(echo ${libsmupath} | rev | cut -d "/" -f 1 | rev)"
         cp libsmu/build/src/${libsmuid} build/pixelpulse2.app/Contents/Frameworks/
