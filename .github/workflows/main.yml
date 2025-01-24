@@ -70,10 +70,6 @@ jobs:
       run: |
         cd build
         mkdir -p pixelpulse2.app/Contents/Frameworks/Versions
-
-        #$(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
-        #cd ..
-
         
         # Get the full path of libsmu and extract the version
         libsmuversion="1.0.4" #TODO: Fix hardcode
@@ -91,8 +87,6 @@ jobs:
         # Update the library path in the main executable
         sudo install_name_tool -change "$libsmupath" "@executable_path/../Frameworks/$libsmuid/Versions/$libsmuversion/libsmu" "pixelpulse2.app/Contents/MacOS/Pixelpulse2"
             
-        # Change to the build directory
-        cd build
         chmod +w pixelpulse2.app/Contents/MacOS/pixelpulse2
 
             
