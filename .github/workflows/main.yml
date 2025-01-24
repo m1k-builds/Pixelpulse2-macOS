@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-13, macos-14] #x86_64 and aarch64
+      fail-fast: false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13' 
+        
+    - name: Install dependencies (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        brew update
+        brew install libusb qt@5 boost
+        brew upgrade qt@5
+        brew link libusb
+        brew link qt
+        echo "/usr/local/opt/qt/bin" >> $GITHUB_PATH
+
+    - name: Clone and build libsmu (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        git clone https://github.com/m1k-builds/libsmu.git
+        cd libsmu
+        mkdir build && cd build
+        cmake -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=/usr/ ..
+        make
+        sudo make install
+        cd ../..
+
+    - name: Build Pixelpulse2 (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        mkdir build && cd build
+        cmake ..
+        make
+        sudo make install
+        cd ..
+
+    - name: Run macOS specific steps
+      if: runner.os == 'macOS'
+      run: |
+        cd build
+        /usr/local/opt/qt/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
+        cd ..
+        libsmupath="$(otool -L ./build/pixelpulse2.app/Contents/MacOS/pixelpulse2 | grep libsmu | cut -d " " -f 1)"
+        libsmuid="$(echo ${libsmupath} | rev | cut -d "/" -f 1 | rev)"
+        cp libsmu/build/src/${libsmuid} build/pixelpulse2.app/Contents/Frameworks/
+        sudo install_name_tool -id @executable_path/../Frameworks/${libsmuid} build/pixelpulse2.app/Contents/Frameworks/${libsmuid}
+        sudo install_name_tool -change ${libsmupath} @executable_path/../Frameworks/${libsmuid} build/pixelpulse2.app/Contents/MacOS/Pixelpulse2
+        cd build
+        /usr/local/opt/qt/bin/macdeployqt pixelpulse2.app -dmg -no-plugins
+        for x in *.dmg ; do mv $x ${x%.dmg}${LDIST}.dmg ; done
+        cd ..
+
+    - name: Upload Release Asset (macOS)
+      if: runner.os == 'macOS'
+      uses: softprops/action-gh-release@v1
+      with:
+        target_commitish: ${{ github.ref_name }}
+        files: build/*.dmg
+        name: pixelpulse2-${{ github.ref_name }}.dmg
+        tag_name: ${{ github.run_id }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
