@@ -70,8 +70,8 @@ jobs:
       run: |
         cd build
 
-        $(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
-        cd ..
+        #$(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
+        #cd ..
 
         
         # Get the full path of libsmu and extract the version
@@ -96,7 +96,7 @@ jobs:
 
             
         # Use macdeployqt to create the DMG
-        "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app -dmg -no-plugins
+        "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app -dmg -no-plugins     -always-overwrite -verbose=2 -qmldir=../qml
             
         # Rename the DMG to include the libsmu version
         for x in *.dmg; do 
