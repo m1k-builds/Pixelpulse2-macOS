@@ -40,7 +40,7 @@ jobs:
         git clone https://github.com/m1k-builds/libsmu-macOS.git libsmu
         cd libsmu
         mkdir build && cd build
-        cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=/usr/local ..
+        cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$HOME/local ..
         make
         sudo make install
         cd ../..
