@@ -94,8 +94,11 @@ jobs:
         "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app -dmg -no-plugins     -always-overwrite -verbose=2 -qmldir=../qml
             
         # Rename the DMG to include the libsmu version
+        # Get the architecture
+        arch=$(uname -m)
+
         for x in *.dmg; do 
-            mv "$x" "${x%.dmg}-libsmu-${libsmuversion}.dmg"
+            mv "$x" "${x%.dmg}-libsmu-${libsmuversion}-${arch}.dmg"
         done
             
         # Return to the original directory
