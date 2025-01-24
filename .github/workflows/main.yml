@@ -40,18 +40,18 @@ jobs:
         git clone https://github.com/m1k-builds/libsmu-macOS.git libsmu
         cd libsmu
         mkdir build && cd build
-        cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$HOME/local ..
-        make
-        make install
+        sudo cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=/usr/local ..
+        sudo make
+        sudo make install
         cd ../..
 
     - name: Build Pixelpulse2 (macOS)
       if: runner.os == 'macOS'
       run: |
         mkdir build && cd build
-        cmake ..
-        make
-        make install
+        sudo cmake ..
+        sudo make
+        sudo make install
         cd ..
 
     - name: Run macOS specific steps
