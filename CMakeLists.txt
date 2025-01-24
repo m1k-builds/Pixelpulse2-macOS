@@ -54,12 +54,12 @@ endif()
 # write version info to file -- used for CI artifact versioning
 file(WRITE ${CMAKE_BINARY_DIR}/.version ${PP_VERSION_STR})
 
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Sql REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Quick REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(Qt5Qml REQUIRED)
+find_package(Qt5 COMPONENTS REQUIRED Core)
+find_package(Qt5 COMPONENTS REQUIRED Sql)
+find_package(Qt5 COMPONENTS REQUIRED Widgets)
+find_package(Qt5 COMPONENTS REQUIRED Quick)
+find_package(Qt5 COMPONENTS REQUIRED Network)
+find_package(Qt5 COMPONENTS REQUIRED Qml)
 
 string(TIMESTAMP BUILD_DATE "%Y/%m/%d")
 set(GIT_VERSION ${PP_GIT_REV})
