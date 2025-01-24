@@ -74,14 +74,14 @@ jobs:
         cd ..
 
         # Get the full path of libsmu and extract the version
-        libsmupath="/Library/Frameworks/libsmu.framework/Versions/*/libsmu"
-        libsmuversion=$(readlink /Library/Frameworks/libsmu.framework/Versions/* | cut -d'/' -f1)
+        libsmupath="/Library/Frameworks/libsmu.framework"
+        libsmuversion="1.0.4" #TODO: Fix hardcode
             
         # Extract the filename from the path
         libsmuid=$(basename "$libsmupath")
             
         # Copy the library to the app's Frameworks directory
-        cp "$libsmupath" "build/pixelpulse2.app/Contents/Frameworks/"
+        cp -r "$libsmupath" "build/pixelpulse2.app/Contents/Frameworks/"
             
         # Update the library's ID
         sudo install_name_tool -id "@executable_path/../Frameworks/$libsmuid" "build/pixelpulse2.app/Contents/Frameworks/$libsmuid"
