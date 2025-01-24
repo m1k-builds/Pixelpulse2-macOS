@@ -36,7 +36,7 @@ jobs:
     - name: Clone and build libsmu (macOS)
       if: runner.os == 'macOS'
       run: |
-        git clone https://github.com/m1k-builds/libsmu-macOS.git
+        git clone https://github.com/m1k-builds/libsmu-macOS.git libsmu
         cd libsmu
         mkdir build && cd build
         cmake -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=/usr/ ..
