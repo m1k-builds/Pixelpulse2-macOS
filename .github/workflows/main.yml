@@ -43,7 +43,7 @@ jobs:
         export MY_INSTALL_DIR=/usr/local
         mkdir -p $MY_INSTALL_DIR
         export PATH="$MY_INSTALL_DIR/bin:$PATH"
-        cmake -DCMAKE_CXX_STANDARD=14 -DOSX_INSTALL_FRAMEWORKSDIR="/Library/Frameworks" -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR ..
+        cmake -DCMAKE_CXX_STANDARD=14 -DOSX_PACKAGE=ON -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR ..
         make
         sudo make install
         cd ../..
