@@ -92,6 +92,8 @@ jobs:
             
         # Change to the build directory
         cd build
+        chmod +w pixelpulse2.app/Contents/MacOS/pixelpulse2
+
             
         # Use macdeployqt to create the DMG
         "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app -dmg -no-plugins
