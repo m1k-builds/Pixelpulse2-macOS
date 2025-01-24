@@ -69,6 +69,7 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         cd build
+        mkdir -p pixelpulse2.app/Contents/Frameworks/Versions
 
         #$(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
         #cd ..
