@@ -86,7 +86,7 @@ jobs:
         cp -r "$libsmupath" "pixelpulse2.app/Contents/Frameworks/Versions"
             
         # Update the library's ID
-        sudo install_name_tool -id "@executable_path/../Frameworks/$libsmuid/Versions/$libsmuversion/libsmu" "pixelpulse2.app/Contents/Frameworks/$libsmuid/Versions/$libsmuversion/libsmu"
+        sudo install_name_tool -id "@executable_path/../Frameworks/$libsmuid/Versions/$libsmuversion/libsmu" "pixelpulse2.app/Contents/Frameworks/Versions/$libsmuversion/libsmu"
             
         # Update the library path in the main executable
         sudo install_name_tool -change "$libsmupath" "@executable_path/../Frameworks/$libsmuid/Versions/$libsmuversion/libsmu" "pixelpulse2.app/Contents/MacOS/Pixelpulse2"
