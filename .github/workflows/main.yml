@@ -73,15 +73,37 @@ jobs:
         $(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
         cd ..
 
-        libsmupath="$(otool -L ./build/pixelpulse2.app/Contents/MacOS/pixelpulse2 | grep libsmu | cut -d " " -f 1)"
-        libsmuid="$(echo ${libsmupath} | rev | cut -d "/" -f 1 | rev)"
-        cp libsmu/build/src/${libsmuid} build/pixelpulse2.app/Contents/Frameworks/
-        sudo install_name_tool -id @executable_path/../Frameworks/${libsmuid} build/pixelpulse2.app/Contents/Frameworks/${libsmuid}
-        sudo install_name_tool -change ${libsmupath} @executable_path/../Frameworks/${libsmuid} build/pixelpulse2.app/Contents/MacOS/Pixelpulse2
+        # Get the full path of libsmu and extract the version
+        libsmupath="/Library/Frameworks/libsmu.framework/Versions/*/libsmu"
+        libsmuversion=$(readlink /Library/Frameworks/libsmu.framework/Versions/* | cut -d'/' -f1)
+            
+        # Extract the filename from the path
+        libsmuid=$(basename "$libsmupath")
+            
+        # Copy the library to the app's Frameworks directory
+        cp "$libsmupath" "build/pixelpulse2.app/Contents/Frameworks/"
+            
+        # Update the library's ID
+        sudo install_name_tool -id "@executable_path/../Frameworks/$libsmuid" "build/pixelpulse2.app/Contents/Frameworks/$libsmuid"
+            
+        # Update the library path in the main executable
+        sudo install_name_tool -change "$libsmupath" "@executable_path/../Frameworks/$libsmuid" "build/pixelpulse2.app/Contents/MacOS/Pixelpulse2"
+            
+        # Change to the build directory
         cd build
-        $(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -dmg -no-plugins
-        for x in *.dmg ; do mv $x ${x%.dmg}${LDIST}.dmg ; done
+            
+        # Use macdeployqt to create the DMG
+        "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app -dmg -no-plugins
+            
+        # Rename the DMG to include the libsmu version
+        for x in *.dmg; do 
+            mv "$x" "${x%.dmg}-libsmu-${libsmuversion}.dmg"
+        done
+            
+        # Return to the original directory
         cd ..
+
+
 
     - name: Upload Release Asset (macOS)
       if: runner.os == 'macOS'
