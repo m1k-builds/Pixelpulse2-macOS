@@ -29,6 +29,7 @@ jobs:
         brew update
         brew install libusb qt@5 boost
         brew upgrade qt@5
+        brew upgrade boost
         brew link libusb
         #brew link qt
         echo "/usr/local/opt/qt/bin" >> $GITHUB_PATH
