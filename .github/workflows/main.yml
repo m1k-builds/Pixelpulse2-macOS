@@ -80,7 +80,7 @@ jobs:
         libsmupath="/Library/Frameworks/libsmu.framework/Versions/$libsmuversion"
             
         # Extract the filename from the path
-        libsmuid=$(basename "$libsmupath")
+        libsmuid="libsmu.framework" #TODO: Fix hardcode
             
         # Copy the library to the app's Frameworks directory
         cp -r "$libsmupath" "pixelpulse2.app/Contents/Frameworks/Versions"
