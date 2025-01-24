@@ -59,8 +59,8 @@ jobs:
         make
 
         mkdir -p Pixelpulse2.app/Contents/plugins/platforms
-        ls /usr/local/opt/qt/
-        cp /usr/local/opt/qt/plugins/platforms/libqcocoa.dylib Pixelpulse2.app/Contents/plugins/platforms/
+        ls $(brew --prefix qt5)
+        cp $(brew --prefix qt5)/plugins/platforms/libqcocoa.dylib Pixelpulse2.app/Contents/plugins/platforms/
 
         sudo make install
         cd ..
