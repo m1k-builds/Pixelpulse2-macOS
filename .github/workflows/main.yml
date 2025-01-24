@@ -60,7 +60,7 @@ jobs:
 
         mkdir -p Pixelpulse2.app/Contents/plugins/platforms
         ls $(brew --prefix qt5)
-        cp $(brew --prefix qt5)/plugins/platforms/libqcocoa.dylib Pixelpulse2.app/Contents/plugins/platforms/
+        cp -r $(brew --prefix qt5)/plugins/* Pixelpulse2.app/Contents/plugins/
 
         sudo make install
         cd ..
