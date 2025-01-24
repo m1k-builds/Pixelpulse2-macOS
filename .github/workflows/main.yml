@@ -70,7 +70,7 @@ jobs:
       run: |
         cd build
 
-        /usr/local/opt/qt/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
+        $(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -always-overwrite -verbose=2 -qmldir=../qml
         cd ..
 
         libsmupath="$(otool -L ./build/pixelpulse2.app/Contents/MacOS/pixelpulse2 | grep libsmu | cut -d " " -f 1)"
@@ -79,7 +79,7 @@ jobs:
         sudo install_name_tool -id @executable_path/../Frameworks/${libsmuid} build/pixelpulse2.app/Contents/Frameworks/${libsmuid}
         sudo install_name_tool -change ${libsmupath} @executable_path/../Frameworks/${libsmuid} build/pixelpulse2.app/Contents/MacOS/Pixelpulse2
         cd build
-        /usr/local/opt/qt/bin/macdeployqt pixelpulse2.app -dmg -no-plugins
+        $(brew --prefix qt5)/bin/macdeployqt pixelpulse2.app -dmg -no-plugins
         for x in *.dmg ; do mv $x ${x%.dmg}${LDIST}.dmg ; done
         cd ..
 
