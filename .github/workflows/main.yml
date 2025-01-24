@@ -42,7 +42,7 @@ jobs:
         mkdir build && cd build
         cmake -DCMAKE_CXX_STANDARD=14 -DBUILD_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$HOME/local ..
         make
-        sudo make install
+        make install
         cd ../..
 
     - name: Build Pixelpulse2 (macOS)
@@ -51,7 +51,7 @@ jobs:
         mkdir build && cd build
         cmake ..
         make
-        sudo make install
+        make install
         cd ..
 
     - name: Run macOS specific steps
