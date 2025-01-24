@@ -76,7 +76,7 @@ jobs:
         
         # Get the full path of libsmu and extract the version
         libsmuversion="1.0.4" #TODO: Fix hardcode
-        libsmupath="/Library/Frameworks/libsmu.framework/$libsmuversion"
+        libsmupath="/Library/Frameworks/libsmu.framework/Versions/$libsmuversion"
             
         # Extract the filename from the path
         libsmuid=$(basename "$libsmupath")
