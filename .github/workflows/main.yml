@@ -27,7 +27,7 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         brew update
-        brew install libusb qt@5 boost
+        brew install libusb qt@5 boost create-dmg
         brew upgrade qt@5
         brew upgrade boost
         brew link libusb
@@ -90,16 +90,24 @@ jobs:
         chmod +w pixelpulse2.app/Contents/MacOS/pixelpulse2
 
             
-        # Use macdeployqt to create the DMG
-        "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app -dmg -no-plugins     -always-overwrite -verbose=2 -qmldir=../qml
-            
+        # Use macdeployqt to handle deps
+        #"$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app     -always-overwrite -verbose=2 -qmldir=../qml
+        
         # Rename the DMG to include the libsmu version
         # Get the architecture
         arch=$(uname -m)
 
-        for x in *.dmg; do 
-            mv "$x" "${x%.dmg}-libsmu-${libsmuversion}-${arch}.dmg"
-        done
+
+        create-dmg \
+        --volname "Pixelpulse2" \
+        --window-pos 200 120 \
+        --window-size 800 400 \
+        --icon-size 100 \
+        --icon "pixelpulse2.app" 200 190 \
+        --hide-extension "pixelpulse2.app" \
+        --app-drop-link 600 185 \
+        "Pixelpulse2-libsmu-${libsmuversion}-${arch}.dmg" \
+        "pixelpulse2.app"
             
         # Return to the original directory
         cd ..
