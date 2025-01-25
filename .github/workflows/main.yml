@@ -91,7 +91,7 @@ jobs:
 
             
         # Use macdeployqt to handle deps
-        #"$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app     -always-overwrite -verbose=2 -qmldir=../qml
+        "$(brew --prefix qt5)/bin/macdeployqt" pixelpulse2.app     -always-overwrite -verbose=2 -qmldir=../qml
         
         # Rename the DMG to include the libsmu version
         # Get the architecture
