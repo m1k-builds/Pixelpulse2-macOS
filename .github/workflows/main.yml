@@ -107,7 +107,8 @@ jobs:
         --hide-extension "pixelpulse2.app" \
         --app-drop-link 600 185 \
         "Pixelpulse2-libsmu-${libsmuversion}-${arch}.dmg" \
-        "pixelpulse2.app"
+        "pixelpulse2.app" \
+        --skip-jenkins
             
         # Return to the original directory
         cd ..
