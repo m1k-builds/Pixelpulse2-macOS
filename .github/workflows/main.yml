@@ -108,7 +108,8 @@ jobs:
         --app-drop-link 600 185 \
         "Pixelpulse2-libsmu-${libsmuversion}-${arch}.dmg" \
         "pixelpulse2.app" \
-        --skip-jenkins
+        --skip-jenkins \
+        --hdiutil-verbose
             
         # Return to the original directory
         cd ..
