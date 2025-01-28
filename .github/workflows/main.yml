@@ -97,19 +97,30 @@ jobs:
         # Get the architecture
         arch=$(uname -m)
 
+        # Package as .pkg file
+        pkgbuild --root "pixelpulse2.app" \
+         --install-location "/Applications" \
+         --identifier "com.analogdevicesinc.pixelpulse2" \
+         --version "libsmu-${libsmuversion}" \
+         "Pixelpulse2-libsmu-${libsmuversion}-${arch}.pkg"
 
-        create-dmg \
-        --volname "Pixelpulse2" \
-        --window-pos 200 120 \
-        --window-size 800 400 \
-        --icon-size 100 \
-        --icon "pixelpulse2.app" 200 190 \
-        --hide-extension "pixelpulse2.app" \
-        --app-drop-link 600 185 \
-        "Pixelpulse2-libsmu-${libsmuversion}-${arch}.dmg" \
-        "pixelpulse2.app" \
-        --skip-jenkins \
-        --hdiutil-verbose
+        # Signing, placeholder template
+        # productsign --sign "Developer ID Installer: Your Name (Your Team ID)" \
+        #     "Pixelpulse2-libsmu-${libsmuversion}-${arch}.pkg" \
+        #     "Pixelpulse2-libsmu-${libsmuversion}-${arch}-signed.pkg"
+
+        # create-dmg \
+        # --volname "Pixelpulse2" \
+        # --window-pos 200 120 \
+        # --window-size 800 400 \
+        # --icon-size 100 \
+        # --icon "pixelpulse2.app" 200 190 \
+        # --hide-extension "pixelpulse2.app" \
+        # --app-drop-link 600 185 \
+        # "Pixelpulse2-libsmu-${libsmuversion}-${arch}.dmg" \
+        # "pixelpulse2.app" \
+        # --skip-jenkins \
+        # --hdiutil-verbose
             
         # Return to the original directory
         cd ..
