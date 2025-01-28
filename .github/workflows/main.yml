@@ -132,8 +132,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         target_commitish: ${{ github.ref_name }}
-        files: build/*.dmg
-        name: pixelpulse2-${{ github.ref_name }}.dmg
+        files: build/*.pkg
+        name: pixelpulse2-${{ github.ref_name }}.pkg
         tag_name: ${{ github.run_id }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
