@@ -137,6 +137,8 @@ jobs:
          # repo name: https://github.com/m1k-builds/homebrew-tap-$(uname -m)
          rm -rf homebrew* || true
          git config --global push.autoSetupRemote true
+         git config --global user.name "Github Actions" 
+         git config --global user.email "actionss@github.com" 
 
          git clone https://${{ github.actor }}:${{ secrets.TAP_PAT }}@github.com/m1k-builds/homebrew-tap-$(uname -m)
          cd homebrew-tap-*
