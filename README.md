@@ -20,7 +20,12 @@ Click and drag the X axis to pan in time.
 
 #### Easy
 
-* OSX - Navigate to the [releases](https://github.com/analogdevicesinc/pixelpulse2/releases) and collect the latest `pixelpulse2-<OS-version>.dmg` package, specific for you OS version.
+* OSX - 
+    ```
+    brew tap m1k-builds/tap-$(uname -m)
+    brew install --cask m1k-builds/tap-$(uname -m)/pixelpulse2
+    ```
+
 * Windows - For a testing build, download the dependency package and the latest binary build from [appveyor](https://ci.appveyor.com/project/analogdevicesinc/pixelpulse2/build/artifacts). For an official release build, navigate to releases and collect the latest pixelpulse2-setup.exe.
 * Linux - Build from source (below) 
 #### Advanced
