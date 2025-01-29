@@ -107,7 +107,7 @@ jobs:
         echo "APP_VERSION=pp2-libsmu-${libsmuversion}-$(date "+%Y-%m-%d")" >> "$GITHUB_ENV"
 
         # Package as zip
-        ditto -c -k --sequesterRsrc --keepParent "${APP_NAME}.app" "pp2-${ARCH}.zip"
+        ditto -c -k --sequesterRsrc --keepParent "pixelpulse2.app" "pp2-${ARCH}.zip"
 
         # Signing, placeholder template
         # productsign --sign "Developer ID Installer: Your Name (Your Team ID)" \
