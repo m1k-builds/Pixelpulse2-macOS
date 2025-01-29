@@ -20,11 +20,19 @@ Click and drag the X axis to pan in time.
 
 #### Easy
 
-* OSX - 
-    ```
-    brew tap m1k-builds/tap-$(uname -m)
-    brew install --cask m1k-builds/tap-$(uname -m)/pixelpulse2
-    ```
+* OSX - We run a simple homebrew tap. To use it:
+    - Set up homebrew
+        ```
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        ```
+    - Add our tap
+        ```
+        brew tap m1k-builds/tap-$(uname -m)
+        ```
+    - Install app
+        ```
+        brew install --cask m1k-builds/tap-$(uname -m)/pixelpulse2
+        ```
 
 * Windows - For a testing build, download the dependency package and the latest binary build from [appveyor](https://ci.appveyor.com/project/analogdevicesinc/pixelpulse2/build/artifacts). For an official release build, navigate to releases and collect the latest pixelpulse2-setup.exe.
 * Linux - Build from source (below) 
