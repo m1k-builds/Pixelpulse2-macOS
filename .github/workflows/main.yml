@@ -150,7 +150,7 @@ jobs:
           
             sed -i '' \
               -e "s/putyourappversionhere/$APP_VERSION/" \
-              -e "s/putyourzipsha256here/$(sha256sum ../build/pp2-*.zip | awk '{print $1}')/" \
+              -e "s/putyourzipsha256here/$(shasum -a 256 ../build/pp2-*.zip | awk '{print $1}')/" \
               -e "s|putyourdownloadurlhere|https://github.com/m1k-builds/Pixelpulse2-macOS/releases/latest/download/pp2-$(uname -m).zip|" \
               Casks/pixelpulse2.rb
 
