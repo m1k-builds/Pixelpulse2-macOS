@@ -11,7 +11,7 @@ cask "pixelpulse2" do
     uninstall pkgutil: "com.analogdevicesinc.pixelpulse2"
 
     def post_install
-        system "codesign", "--sign", "-", Contents/MacOS/pixelpulse2
+        system "codesign", "--force", "--deep", "--sign", "-", Contents/MacOS/pixelpulse2
     end
   end
   
